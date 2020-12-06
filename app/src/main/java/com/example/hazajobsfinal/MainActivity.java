@@ -2,10 +2,13 @@ package com.example.hazajobsfinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +24,16 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
     Button  loginBtn;
 
-    TextView createBtn, txtEmail, txtPass;
+    TextView createBtn;
+    EditText txtEmail, txtPass;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         createBtn = findViewById(R.id.createAccountIdMain);
         loginBtn = findViewById(R.id.loginIdMain);
+        txtEmail = findViewById(R.id.emailIdMain);
+        txtPass = findViewById(R.id.passwordIdMain);
 
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) {
+
                 try {
                     spinner.dismissDialog();
+                    SharedPreferences sharedPreferences = getSharedPreferences("tokenPrefs", Context.MODE_PRIVATE);
+                    String saveToken = response.getJSONObject("auth").getString("token");
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token", saveToken);
+                    System.out.println(saveToken);
                     Toast.makeText(MainActivity.this, response.getString("status"), Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     spinner.dismissDialog();

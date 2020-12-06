@@ -2,11 +2,14 @@ package com.example.hazajobsfinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +23,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 public class Signup extends AppCompatActivity {
-    TextView txtEmail, txtPassword, txtConfirmPass, btnCancel;
+    EditText txtEmail, txtPassword, txtConfirmPass;
+    TextView  btnCancel;
     Button btnCreate;
 
     @Override
@@ -71,6 +75,11 @@ public class Signup extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     spinner.dismissDialog();
+                    SharedPreferences sharedPreferences = getSharedPreferences("tokenPrefs", Context.MODE_PRIVATE);
+                    String saveToken = response.getJSONObject("auth").getString("token");
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token", saveToken);
+                    System.out.println(saveToken);
                     Toast.makeText(Signup.this, response.getString("status"), Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     spinner.dismissDialog();
