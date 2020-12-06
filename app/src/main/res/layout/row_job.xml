@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardMaxElevation="2dp"
+    android:padding="5dp"
+    android:layout_margin="5dp"  >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/imageProfilerId"
+            android:src="@mipmap/logo"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/purple_500"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:hint="Job Title"
+                android:textStyle="bold"
+                android:paddingTop="5dp"
+                android:textColor="@color/purple_700"
+                android:textSize="20dp"
+                android:id="@+id/jobTitleId"
+                android:textAlignment="textStart"/>
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:paddingTop="5dp"
+                android:id="@+id/postedById"
+                android:hint="Posted By"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:textAlignment="textStart"/>
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="25dp"
+                android:paddingTop="5dp"
+                android:id="@+id/dateId"
+                android:hint="On 21th Aug. 2020"
+                android:textStyle="italic"
+                android:textSize="15dp"
+                android:textAlignment="textStart"/>
+
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:padding="0dp"
+            android:text="View"
+            android:textSize="10dp"
+            android:id="@+id/onViewBtnId"
+            android:layout_marginTop="20dp"/>
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

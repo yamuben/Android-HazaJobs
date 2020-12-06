@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/teal_200"
+    android:layout_height="match_parent"
+    tools:context=".Signup">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/teal_700"
+            android:layout_gravity="center"
+            android:textAlignment="center">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageprofiler"
+                android:layout_width="96dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/logo"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="0dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Signup Account"
+                android:textColor="@color/purple_500"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/emailId"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="center"
+                android:hint="Email"
+                android:padding="5dp"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/passwordId"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:textSize="24dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:hint="Password"
+                android:padding="5dp"
+                android:layout_gravity="center" />
+
+            <EditText
+                android:id="@+id/rePasswordId"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:hint="Re-password"
+                android:padding="5dp"
+                android:textSize="24sp"
+                android:layout_gravity="center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30dp">
+
+
+
+
+                <TextView
+                    android:id="@+id/cancelId"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="70dp"
+                    android:inputType="text"
+                    android:textSize="20dp"
+                    android:textColor="@color/purple_500"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:padding="10dp"
+                    android:text="Cancel" />
+
+                <Button
+                    android:id="@+id/registerId"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="50dp"
+                    android:inputType="text"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:padding="2dp"
+                    android:text="Register" />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
