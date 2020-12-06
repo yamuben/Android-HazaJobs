@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:padding="0dp"
-            android:text="View"
+            android:text="Apply"
             android:textSize="10dp"
             android:id="@+id/onViewBtnId"
             android:layout_marginTop="20dp"/>
