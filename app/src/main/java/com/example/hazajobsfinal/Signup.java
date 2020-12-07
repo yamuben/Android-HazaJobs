@@ -2,11 +2,14 @@ package com.example.hazajobsfinal;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +22,12 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Signup extends AppCompatActivity {
-    TextView txtEmail, txtPassword, txtConfirmPass, btnCancel;
+    EditText txtEmail, txtPassword, txtConfirmPass;
+    TextView  btnCancel;
     Button btnCreate;
 
     @Override
@@ -45,18 +52,34 @@ public class Signup extends AppCompatActivity {
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Loading spinner = new Loading(Signup.this);
-                spinner.startLoadingDialog();
 
-                JSONObject data = new JSONObject();
-                try {
-                    data.put("email", txtEmail.getText().toString());
-                    data.put("password", txtPassword.getText().toString());
-                    data.put("confirmPassword", txtConfirmPass.getText().toString());
-                }catch (Exception ex){
+                String regex = "^(.+)@(.+)$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(txtEmail.getText().toString());
+                if(txtEmail.getText().toString().equals("")){
+                    txtEmail.setError("email is required");
+                }else if(txtPassword.getText().toString().equals("")){
+                    txtPassword.setError("Password is required");
+                }else if(txtPassword.getText().toString().length() < 8){
+                    txtPassword.setError("Password must have at least 8 characters");
+                }else if (!matcher.matches()){
+                    txtEmail.setError("Invalid Email");
+                }else if(!txtPassword.getText().toString().equals(txtConfirmPass.getText().toString())){
+                    Toast.makeText(Signup.this, "Password must be equal", Toast.LENGTH_LONG).show();
+                }else{
+                    Loading spinner = new Loading(Signup.this);
+                    spinner.startLoadingDialog();
 
+                    JSONObject data = new JSONObject();
+                    try {
+                        data.put("email", txtEmail.getText().toString());
+                        data.put("password", txtPassword.getText().toString());
+                        data.put("confirmPassword", txtConfirmPass.getText().toString());
+                    }catch (Exception ex){
+
+                    }
+                    submitData(data, spinner);
                 }
-                submitData(data, spinner);
             }
         });
 
@@ -71,6 +94,12 @@ public class Signup extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     spinner.dismissDialog();
+                    SharedPreferences sharedPreferences = getSharedPreferences("tokenPrefs", Context.MODE_PRIVATE);
+                    String saveToken = response.getJSONObject("auth").getString("token");
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("token", saveToken);
+                    editor.commit();
+
                     Toast.makeText(Signup.this, response.getString("status"), Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     spinner.dismissDialog();
