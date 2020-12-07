@@ -71,13 +71,6 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("tokenPrefs", Context.MODE_PRIVATE);
         String token = sharedPreferences.getString("token", "");
 
-        JSONObject data = new JSONObject();
-        try {
-            data.put("token", token);
-        }catch (Exception ex){
-
-        }
-
         RequestQueue queue = Volley.newRequestQueue(getContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Constants.URL_GET_JOBS, null, new Response.Listener<JSONObject>() {
             @Override
@@ -115,17 +108,18 @@ public class HomeFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), "Connect to the internet, If you're connect try again later!.", Toast.LENGTH_LONG).show();
             }
-        });
-//        {
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError{
-//                Map<String, String> headers = new HashMap<String, String>();
-//                headers.put("Content-Type", "application/json; charset=utf-8");
-//                headers.put("x_auth_token", token);
-//                System.out.println(headers);
-//                return headers;
-//            }
-//        };
+        }){
+            @NonNull
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                System.out.println("Token in header: " + token);
+                headers.put("Authorization", token);
+                return headers;
+            }
+
+        };
 
         queue.add(jsonObjectRequest);
 }
